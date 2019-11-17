@@ -1,12 +1,21 @@
-import React from 'react';
+import React,{Component} from 'react';
 import './bootstrap.min.css';
+import Header from './components/Header';
 
-function App() {
-  return (
-    <div className="App">
-      <h1>react js</h1>
-    </div>
-  );
+class App extends Component {
+  state = {  };
+
+  render() {
+    return (
+      <div className="container">
+        <Header
+          titulo = 'Administrador de Pacientes en Veterinaria'
+        />
+        <h1>container</h1>
+      </div>
+
+    );
+  }
 }
 
 export default App;
