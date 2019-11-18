@@ -1,4 +1,5 @@
 import React,{Component} from 'react';
+import uuid from 'uuid';
 
 class NuevaCita extends Component{
     state = {
@@ -14,8 +15,7 @@ class NuevaCita extends Component{
 
     //fucnión para capturar los datos y guardarlo en el state
     handleChange = (e) =>{
-        console.log(e.target.name + ': ' + e.target.value);
-
+        // console.log(e.target.name + ': ' + e.target.value);
         //colocar datos en el state
         this.setState({
             cita:{
@@ -42,7 +42,12 @@ class NuevaCita extends Component{
             return;
         }
 
+        //generar objeto con id
+        const nuevaCita = {...this.state.cita};
+        nuevaCita.id = uuid();
+
         //agregar la cita al state de App.js
+        this.props.crearNuevaCita(nuevaCita);
     }
 
     render(){
