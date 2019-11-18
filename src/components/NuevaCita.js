@@ -1,17 +1,19 @@
 import React,{Component} from 'react';
 import uuid from 'uuid';
 
+const stateInitial ={
+    cita:{
+        mascota:'',
+        propietario:'',
+        fecha:'',
+        hora:'',
+        sintomas:''
+    },
+    error: false
+};
+
 class NuevaCita extends Component{
-    state = {
-        cita:{
-            mascota:'',
-            propietario:'',
-            fecha:'',
-            hora:'',
-            sintomas:''
-        },
-        error: false
-    };
+    state = {...stateInitial};
 
     //fucnión para capturar los datos y guardarlo en el state
     handleChange = (e) =>{
@@ -48,9 +50,15 @@ class NuevaCita extends Component{
 
         //agregar la cita al state de App.js
         this.props.crearNuevaCita(nuevaCita);
+
+        //reiniciar el state, solo con la copia del initialState
+        this.setState({
+            ...stateInitial
+        });
     }
 
     render(){
+        const {error}= this.state;
         return(
             <div className="card mt-5 py-5">
                 <div className="card-body">
@@ -58,6 +66,12 @@ class NuevaCita extends Component{
                     <h2 className="card-title text-center mb-5">
                     Llenar formulario para nueva cita
                     </h2>
+
+                    {
+                        error ? <div className="alert alert-danger mt-2 mv-5 text-center">
+                            todos los campos son obligatorios
+                        </div> : null
+                    }
 
                     {/* Formulario */}
                     <form onSubmit={this.handleSubmit}>
