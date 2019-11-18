@@ -8,9 +8,11 @@ class NuevaCita extends Component{
             fecha:'',
             hora:'',
             sintomas:''
-        }
+        },
+        error: false
     };
 
+    //fucnión para capturar los datos y guardarlo en el state
     handleChange = (e) =>{
         console.log(e.target.name + ': ' + e.target.value);
 
@@ -23,6 +25,26 @@ class NuevaCita extends Component{
         });
     }
 
+    //función para enviar los datos desde el formulario
+    handleSubmit = e =>{
+        e.preventDefault();
+
+        //extraer los valores del state
+        const {mascota,propietario,fecha,hora,sintomas} = this.state.cita;
+
+        //validar que todos los campos estén llenos
+        if(mascota==='' || propietario==='' || fecha==='' || hora==='' || sintomas===''){
+            this.setState({
+                error: true
+            });
+
+            //detener la ejecución
+            return;
+        }
+
+        //agregar la cita al state de App.js
+    }
+
     render(){
         return(
             <div className="card mt-5 py-5">
@@ -33,7 +55,7 @@ class NuevaCita extends Component{
                     </h2>
 
                     {/* Formulario */}
-                    <form>
+                    <form onSubmit={this.handleSubmit}>
 
                         <div className="form-group row">
                             <label className="col-ms-4 col-lg-2 col-form-label">
