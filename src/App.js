@@ -7,7 +7,23 @@ import ListaCitas from './components/ListaCitas';
 class App extends Component {
   state = { 
     citas:[]
-   };
+  };
+
+  //cuando la aplicación ha sido cargado
+  componentDidMount(){
+    const citasLS = localStorage.getItem('citas');
+
+    if(citasLS){
+      this.setState({
+        citas: JSON.parse(citasLS)
+      });
+    }
+  }
+
+  //cuando se actualizó la app
+  componentDidUpdate(){
+    localStorage.setItem('citas',JSON.stringify(this.state.citas));
+  }
 
   crearNuevaCita = datos =>{
     //copiar el state actual
